@@ -1,4 +1,4 @@
-# Diagnostic Primitives
+# Diagnostic
 
 ![Development Status](https://img.shields.io/badge/status-active--development-blue.svg)
 
@@ -11,7 +11,7 @@ A `Diagnostic` namespace of structured-finding value types for Swift — a typed
 A `Diagnostic.Record` is one finding: *where* it was emitted (a typed `Source.Location`, never a raw `Int` line number), *how severe* it is, *which* rule emitted it, and *why*. It renders in the canonical `file:line:col: severity: identifier: message` form that compilers and linters share.
 
 ```swift
-import Diagnostic_Primitives
+import Diagnostic
 
 let record = Diagnostic.Record(
     location: Source.Location(
@@ -32,7 +32,7 @@ print(record)
 `Diagnostic.Severity` is `Comparable`, ordered most-to-least severe, and `Diagnostic.Record` is `Comparable` lexicographically by location, then severity, then identifier, then message — so a batch of findings sorts straight into a stable reporter order. Each severity also carries its canonical wire-format token for reporters targeting SARIF, SwiftLint-textual, or GCC-style `file:line:col: severity:` output.
 
 ```swift
-import Diagnostic_Primitives
+import Diagnostic
 
 let ordered = [Diagnostic.Severity.note, .error, .warning].sorted()
 print(ordered)   // [error, warning, note]
@@ -48,7 +48,7 @@ Records are `Equatable` and `Hashable` (deduplication), `Codable` (serialization
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/swift-primitives/swift-diagnostic-primitives.git", branch: "main")
+    .package(url: "https://github.com/swift-molecules/swift-diagnostic.git", branch: "main")
 ]
 ```
 
@@ -56,7 +56,7 @@ dependencies: [
 .target(
     name: "App",
     dependencies: [
-        .product(name: "Diagnostic Primitives", package: "swift-diagnostic-primitives"),
+        .product(name: "Diagnostic", package: "swift-diagnostic"),
     ]
 )
 ```
@@ -67,12 +67,12 @@ Requires Swift 6.3.1 and macOS 26 / iOS 26 / tvOS 26 / watchOS 26 / visionOS 26 
 
 ## Architecture
 
-Two library products. Depends only on `Source.Location` from `swift-source-primitives`.
+Two library products. Depends only on `Source.Location` from `swift-source`.
 
 | Product | Target | Purpose |
 |---------|--------|---------|
-| `Diagnostic Primitives` | `Sources/Diagnostic Primitives/` | The `Diagnostic` namespace: `Diagnostic.Record` (typed `Source.Location` + `Diagnostic.Severity` + identifier + message, with a `description` rendering) and `Diagnostic.Severity` (`error` / `warning` / `note` / `remark`) with its `wire.token` wire-format mapping. |
-| `Diagnostic Primitives Test Support` | `Tests/Support/` | Re-exports the main target (and `Source Primitives Test Support`) for test consumers. |
+| `Diagnostic` | `Sources/Diagnostic/` | The `Diagnostic` namespace: `Diagnostic.Record` (typed `Source.Location` + `Diagnostic.Severity` + identifier + message, with a `description` rendering) and `Diagnostic.Severity` (`error` / `warning` / `note` / `remark`) with its `wire.token` wire-format mapping. |
+| `Diagnostic Test Support` | `Tests/Support/` | Re-exports the main target (and `Source Test Support`) for test consumers. |
 
 Foundation-free.
 

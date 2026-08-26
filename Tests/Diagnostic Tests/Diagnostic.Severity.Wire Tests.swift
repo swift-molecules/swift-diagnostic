@@ -1,4 +1,4 @@
-import Diagnostic_Primitives_Test_Support
+import Diagnostic_Test_Support
 import Testing
 
 extension Diagnostic.Severity.Wire {

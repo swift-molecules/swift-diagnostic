@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "swift-diagnostic-primitives",
+    name: "swift-diagnostic",
     platforms: [
         .macOS(.v27),
         .iOS(.v27),
@@ -13,44 +13,44 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "Diagnostic Primitives",
-            targets: ["Diagnostic Primitives"]
+            name: "Diagnostic",
+            targets: ["Diagnostic"]
         ),
         .library(
-            name: "Diagnostic Primitives Test Support",
-            targets: ["Diagnostic Primitives Test Support"]
+            name: "Diagnostic Test Support",
+            targets: ["Diagnostic Test Support"]
         ),
     ],
     dependencies: [
         .package(
-            url: "https://github.com/swift-primitives/swift-source-primitives.git",
+            url: "https://github.com/swift-molecules/swift-source.git",
             branch: "main"
         )
 
     ],
     targets: [
         .target(
-            name: "Diagnostic Primitives",
+            name: "Diagnostic",
             dependencies: [
-                .product(name: "Source Primitives", package: "swift-source-primitives")
+                .product(name: "Source", package: "swift-source")
             ]
         ),
         .target(
-            name: "Diagnostic Primitives Test Support",
+            name: "Diagnostic Test Support",
             dependencies: [
-                "Diagnostic Primitives",
+                "Diagnostic",
                 .product(
-                    name: "Source Primitives Test Support",
-                    package: "swift-source-primitives"
+                    name: "Source Test Support",
+                    package: "swift-source"
                 ),
             ],
             path: "Tests/Support"
         ),
         .testTarget(
-            name: "Diagnostic Primitives Tests",
+            name: "Diagnostic Tests",
             dependencies: [
-                "Diagnostic Primitives",
-                "Diagnostic Primitives Test Support",
+                "Diagnostic",
+                "Diagnostic Test Support",
             ]
         ),
     ],
