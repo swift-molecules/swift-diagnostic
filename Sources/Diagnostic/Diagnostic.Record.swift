@@ -1,3 +1,5 @@
+public import Source
+
 extension Diagnostic {
 
     public struct Record: Sendable, Equatable, Hashable, Codable {

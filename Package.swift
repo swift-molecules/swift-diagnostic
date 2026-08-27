@@ -17,13 +17,17 @@ let package = Package(
             targets: ["Diagnostic"]
         ),
         .library(
-            name: "Diagnostic Test Support",
-            targets: ["Diagnostic Test Support"]
+            name: "Diagnostic Standard Library Integration",
+            targets: ["Diagnostic Standard Library Integration"]
+        ),
+        .library(
+            name: "Diagnostic Apple Foundation Integration",
+            targets: ["Diagnostic Apple Foundation Integration"]
         ),
     ],
     dependencies: [
         .package(
-            url: "https://github.com/swift-molecules/swift-source.git",
+            url: "https://github.com/swift-atoms/swift-source.git",
             branch: "main"
         )
 
@@ -36,22 +40,19 @@ let package = Package(
             ]
         ),
         .target(
-            name: "Diagnostic Test Support",
+            name: "Diagnostic Standard Library Integration",
+            dependencies: ["Diagnostic"]
+        ),
+        .target(
+            name: "Diagnostic Apple Foundation Integration",
             dependencies: [
                 "Diagnostic",
-                .product(
-                    name: "Source Test Support",
-                    package: "swift-source"
-                ),
-            ],
-            path: "Tests/Support"
+                "Diagnostic Standard Library Integration",
+            ]
         ),
         .testTarget(
             name: "Diagnostic Tests",
-            dependencies: [
-                "Diagnostic",
-                "Diagnostic Test Support",
-            ]
+            dependencies: ["Diagnostic"]
         ),
     ],
     swiftLanguageModes: [.v6]

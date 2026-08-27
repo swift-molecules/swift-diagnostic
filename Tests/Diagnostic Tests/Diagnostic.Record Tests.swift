@@ -1,4 +1,5 @@
-import Diagnostic_Test_Support
+import Diagnostic
+import Source
 import Testing
 
 extension Diagnostic.Record {
