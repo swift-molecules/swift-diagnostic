@@ -27,7 +27,7 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/swift-atoms/swift-source.git",
+            url: "https://github.com/swift-molecules/swift-source.git",
             branch: "main"
         )
 
@@ -36,7 +36,8 @@ let package = Package(
         .target(
             name: "Diagnostic",
             dependencies: [
-                .product(name: "Source", package: "swift-source")
+                .product(name: "Source", package: "swift-source"),
+                .product(name: "Source Standard Library Integration", package: "swift-source")
             ]
         ),
         .target(
@@ -52,7 +53,7 @@ let package = Package(
         ),
         .testTarget(
             name: "Diagnostic Tests",
-            dependencies: ["Diagnostic"]
+            dependencies: ["Diagnostic", .product(name: "Source", package: "swift-source")]
         ),
     ],
     swiftLanguageModes: [.v6]
