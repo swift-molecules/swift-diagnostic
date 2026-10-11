@@ -1,5 +1,5 @@
 public import Source
-public import Source_Standard_Library_Integration
+import Source_Standard_Library_Integration
 
 extension Diagnostic {
 
@@ -9,16 +9,16 @@ extension Diagnostic {
 
         public let severity: Severity
 
-        public let identifier: Swift.String
+        public let identifier: Swift::String
 
-        public let message: Swift.String
+        public let message: Swift::String
 
         @inlinable
         public init(
             location: Source.Location,
             severity: Severity,
-            identifier: Swift.String,
-            message: Swift.String
+            identifier: Swift::String,
+            message: Swift::String
         ) {
             self.location = location
             self.severity = severity
@@ -42,7 +42,7 @@ extension Diagnostic.Record: Comparable {
 extension Diagnostic.Record: CustomStringConvertible {
 
     @inlinable
-    public var description: Swift.String {
+    public var description: Swift::String {
         "\(location): \(severity): \(identifier): \(message)"
     }
 }

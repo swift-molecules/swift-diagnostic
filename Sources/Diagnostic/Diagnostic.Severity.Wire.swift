@@ -17,7 +17,7 @@ extension Diagnostic.Severity {
 extension Diagnostic.Severity.Wire {
 
     @inlinable
-    public var token: Swift.String {
+    public var token: Swift::String {
         switch severity {
         case .error: "error"
         case .warning: "warning"
