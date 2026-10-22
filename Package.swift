@@ -37,12 +37,14 @@ let package = Package(
             name: "Diagnostic",
             dependencies: [
                 .product(name: "Source", package: "swift-source"),
-                .product(name: "Source Standard Library Integration", package: "swift-source"),
             ]
         ),
         .target(
             name: "Diagnostic Standard Library Integration",
-            dependencies: [.target(name: "Diagnostic")]
+            dependencies: [
+                .target(name: "Diagnostic"),
+                .product(name: "Source Standard Library Integration", package: "swift-source"),
+            ]
         ),
         .target(
             name: "Diagnostic Apple Foundation Integration",

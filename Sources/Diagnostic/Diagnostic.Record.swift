@@ -1,9 +1,8 @@
 public import Source
-import Source_Standard_Library_Integration
 
 extension Diagnostic {
 
-    public struct Record: Sendable, Equatable, Hashable, Codable {
+    public struct Record: Sendable, Equatable, Hashable {
 
         public let location: Source.Location
 

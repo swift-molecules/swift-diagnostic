@@ -1,1 +1,1 @@
-import Diagnostic
+public import Diagnostic

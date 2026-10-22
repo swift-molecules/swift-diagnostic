@@ -1,6 +1,6 @@
 extension Diagnostic {
 
-    public enum Severity: Int, Sendable, Hashable, Comparable, CaseIterable, Codable {
+    public enum Severity: Int, Sendable, Hashable, Comparable, CaseIterable {
         case error
         case warning
         case note
