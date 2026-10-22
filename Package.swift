@@ -41,6 +41,7 @@ let package = Package(
             name: "Diagnostic Standard Library Integration",
             dependencies: [
                 .target(name: "Diagnostic"),
+                .product(name: "Source", package: "swift-source"),
                 .product(name: "Source Standard Library Integration", package: "swift-source"),
             ]
         ),

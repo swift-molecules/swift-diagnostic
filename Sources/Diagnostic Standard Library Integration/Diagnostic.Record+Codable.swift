@@ -1,5 +1,6 @@
 #if !hasFeature(Embedded)
     public import Diagnostic
+    public import Source
     public import Source_Standard_Library_Integration
 
     extension Diagnostic.Record {
