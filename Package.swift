@@ -24,13 +24,20 @@ let package = Package(
             name: "Diagnostic Apple Foundation Integration",
             targets: ["Diagnostic Apple Foundation Integration"]
         ),
+        .library(
+            name: "Diagnostics",
+            targets: ["Diagnostics"]
+        ),
     ],
     dependencies: [
         .package(
             url: "https://github.com/swift-molecules/swift-source.git",
             branch: "main"
-        )
-
+        ),
+        .package(
+            url: "https://github.com/swift-atoms/swift-text.git",
+            branch: "main"
+        ),
     ],
     targets: [
         .target(
@@ -55,6 +62,21 @@ let package = Package(
         .testTarget(
             name: "Diagnostic Tests",
             dependencies: [.target(name: "Diagnostic"), .product(name: "Source", package: "swift-source")]
+        ),
+        .target(
+            name: "Diagnostics",
+            dependencies: [
+                .target(name: "Diagnostic"),
+                .product(name: "Source", package: "swift-source"),
+            ]
+        ),
+        .testTarget(
+            name: "Diagnostics Tests",
+            dependencies: [
+                .target(name: "Diagnostics"),
+                .product(name: "Source", package: "swift-source"),
+                .product(name: "Text", package: "swift-text"),
+            ]
         ),
     ],
     swiftLanguageModes: [.v6]
