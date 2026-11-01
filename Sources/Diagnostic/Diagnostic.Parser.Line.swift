@@ -1,12 +1,12 @@
 internal import Source
 
-extension Diagnostics.Parser {
+extension Diagnostic.Parser {
 
     internal enum Line {
     }
 }
 
-extension Diagnostics.Parser.Line {
+extension Diagnostic.Parser.Line {
 
     internal static func parse(_ line: Swift::String) -> Diagnostic.Record? {
         let drive = drive(of: line)

@@ -2,23 +2,23 @@ import Source
 import Testing
 import Text
 
-@testable import Diagnostics
+@testable import Diagnostic
 
-extension Diagnostics.Parser {
+extension Diagnostic.Parser {
     @Suite struct Test {
         @Suite struct Unit {}
         @Suite struct `Edge Case` {}
     }
 }
 
-extension Diagnostics.Parser.Test.Unit {
+extension Diagnostic.Parser.Test.Unit {
     @Test
-    func `Single error line yields one record with expected fields`() {
+    func `Single error line yields one record with expected fields`() throws {
         let stderr = "/path/to/File.swift:12:5: error: cannot find 'foo' in scope"
-        let records = Diagnostics.Parser.parse(stderr: stderr)
+        let records = Diagnostic.Parser.parse(stderr: stderr)
 
-        try? #require(records.count == 1)
-        guard let record = records.first else { return }
+        #expect(records.count == 1)
+        let record = try #require(records.first)
         #expect(record.severity == .error)
         #expect(record.identifier == "swift_build_diagnostic")
         #expect(record.message == "cannot find 'foo' in scope")
@@ -35,7 +35,7 @@ extension Diagnostics.Parser.Test.Unit {
             /C.swift:3:3: note: fyi
             /D.swift:4:4: remark: hint
             """
-        let records = Diagnostics.Parser.parse(stderr: stderr)
+        let records = Diagnostic.Parser.parse(stderr: stderr)
         #expect(records.count == 4)
         #expect(records.map(\.severity) == [.error, .warning, .note, .remark])
         #expect(records.map(\.message) == ["bad", "meh", "fyi", "hint"])
@@ -43,24 +43,24 @@ extension Diagnostics.Parser.Test.Unit {
 
     @Test
     func `Severity-keyword mapper covers all four wire keywords`() {
-        #expect(Diagnostics.Parser.Line.severity(forKeyword: "error") == .error)
-        #expect(Diagnostics.Parser.Line.severity(forKeyword: "warning") == .warning)
-        #expect(Diagnostics.Parser.Line.severity(forKeyword: "note") == .note)
-        #expect(Diagnostics.Parser.Line.severity(forKeyword: "remark") == .remark)
-        #expect(Diagnostics.Parser.Line.severity(forKeyword: "unknown") == nil)
-        #expect(Diagnostics.Parser.Line.severity(forKeyword: "") == nil)
+        #expect(Diagnostic.Parser.Line.severity(forKeyword: "error") == .error)
+        #expect(Diagnostic.Parser.Line.severity(forKeyword: "warning") == .warning)
+        #expect(Diagnostic.Parser.Line.severity(forKeyword: "note") == .note)
+        #expect(Diagnostic.Parser.Line.severity(forKeyword: "remark") == .remark)
+        #expect(Diagnostic.Parser.Line.severity(forKeyword: "unknown") == nil)
+        #expect(Diagnostic.Parser.Line.severity(forKeyword: "") == nil)
     }
 }
 
-extension Diagnostics.Parser.Test.`Edge Case` {
+extension Diagnostic.Parser.Test.`Edge Case` {
     @Test
     func `Empty stderr yields no records`() {
-        let records = Diagnostics.Parser.parse(stderr: "")
+        let records = Diagnostic.Parser.parse(stderr: "")
         #expect(records.isEmpty)
     }
 
     @Test
-    func `Malformed lines are silently skipped`() {
+    func `Malformed lines are silently skipped`() throws {
         let stderr = """
             Building swift-foo
             /Real.swift:7:3: warning: shadowed
@@ -69,21 +69,21 @@ extension Diagnostics.Parser.Test.`Edge Case` {
             Compiling File.swift
             /Unknown.swift:1:1: bogus: not a real severity
             """
-        let records = Diagnostics.Parser.parse(stderr: stderr)
+        let records = Diagnostic.Parser.parse(stderr: stderr)
 
-        try? #require(records.count == 1)
-        guard let record = records.first else { return }
+        #expect(records.count == 1)
+        let record = try #require(records.first)
         #expect(record.severity == .warning)
         #expect(record.message == "shadowed")
     }
 
     @Test
-    func `CRLF line endings leave no carriage-return residue`() {
+    func `CRLF line endings leave no carriage-return residue`() throws {
         let stderr = "/A.swift:1:1: error: bad\r\n"
-        let records = Diagnostics.Parser.parse(stderr: stderr)
+        let records = Diagnostic.Parser.parse(stderr: stderr)
 
-        try? #require(records.count == 1)
-        guard let record = records.first else { return }
+        #expect(records.count == 1)
+        let record = try #require(records.first)
         #expect(record.message == "bad")
     }
 }

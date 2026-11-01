@@ -1,10 +1,10 @@
-extension Diagnostics {
+extension Diagnostic {
 
     public enum Parser: Swift::Sendable {
     }
 }
 
-extension Diagnostics.Parser {
+extension Diagnostic.Parser {
 
     public static func parse(stderr text: Swift::String) -> [Diagnostic.Record] {
 

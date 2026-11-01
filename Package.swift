@@ -24,10 +24,6 @@ let package = Package(
             name: "Diagnostic Apple Foundation Integration",
             targets: ["Diagnostic Apple Foundation Integration"]
         ),
-        .library(
-            name: "Diagnostics",
-            targets: ["Diagnostics"]
-        ),
     ],
     dependencies: [
         .package(
@@ -61,19 +57,8 @@ let package = Package(
         ),
         .testTarget(
             name: "Diagnostic Tests",
-            dependencies: [.target(name: "Diagnostic"), .product(name: "Source", package: "swift-source")]
-        ),
-        .target(
-            name: "Diagnostics",
             dependencies: [
                 .target(name: "Diagnostic"),
-                .product(name: "Source", package: "swift-source"),
-            ]
-        ),
-        .testTarget(
-            name: "Diagnostics Tests",
-            dependencies: [
-                .target(name: "Diagnostics"),
                 .product(name: "Source", package: "swift-source"),
                 .product(name: "Text", package: "swift-text"),
             ]
