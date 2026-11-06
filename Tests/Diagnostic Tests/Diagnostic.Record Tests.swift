@@ -2,14 +2,16 @@ import Diagnostic
 import Source
 import Testing
 
-extension Diagnostic.Record {
+enum `Diagnostic.Record Tests` {}
+
+extension `Diagnostic.Record Tests` {
     @Suite
     struct Test {
         @Suite struct Unit {}
     }
 }
 
-extension Diagnostic.Record.Test.Unit {
+extension `Diagnostic.Record Tests`.Test.Unit {
     @Test
     func `Record stores location severity identifier and message`() {
         let location = Source.Location(

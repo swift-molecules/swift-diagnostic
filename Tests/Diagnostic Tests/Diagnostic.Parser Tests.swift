@@ -4,14 +4,16 @@ import Text
 
 @testable import Diagnostic
 
-extension Diagnostic.Parser {
+enum `Diagnostic.Parser Tests` {}
+
+extension `Diagnostic.Parser Tests` {
     @Suite struct Test {
         @Suite struct Unit {}
         @Suite struct `Edge Case` {}
     }
 }
 
-extension Diagnostic.Parser.Test.Unit {
+extension `Diagnostic.Parser Tests`.Test.Unit {
     @Test
     func `Single error line yields one record with expected fields`() throws {
         let stderr = "/path/to/File.swift:12:5: error: cannot find 'foo' in scope"
@@ -52,7 +54,7 @@ extension Diagnostic.Parser.Test.Unit {
     }
 }
 
-extension Diagnostic.Parser.Test.`Edge Case` {
+extension `Diagnostic.Parser Tests`.Test.`Edge Case` {
     @Test
     func `Empty stderr yields no records`() {
         let records = Diagnostic.Parser.parse(stderr: "")

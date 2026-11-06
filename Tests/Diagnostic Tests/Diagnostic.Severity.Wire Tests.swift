@@ -1,7 +1,9 @@
 import Diagnostic
 import Testing
 
-extension Diagnostic.Severity.Wire {
+enum `Diagnostic.Severity.Wire Tests` {}
+
+extension `Diagnostic.Severity.Wire Tests` {
     @Suite
     struct Test {
         @Suite struct Unit {}
@@ -10,7 +12,7 @@ extension Diagnostic.Severity.Wire {
     }
 }
 
-extension Diagnostic.Severity.Wire.Test.Unit {
+extension `Diagnostic.Severity.Wire Tests`.Test.Unit {
     @Test
     func `error token is "error"`() {
         #expect(Diagnostic.Severity.error.wire.token == "error")

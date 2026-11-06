@@ -4,7 +4,7 @@ import Text
 
 @testable import Diagnostic
 
-extension Diagnostic.Parser.Test.`Edge Case` {
+extension `Diagnostic.Parser Tests`.Test.`Edge Case` {
     @Test
     func `empty input and blank lines give no records`() {
         #expect(Diagnostic.Parser.parse(stderr: "").isEmpty)
